@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:PaintWPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    
-    <Grid>
+
+    <Grid Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
@@ -17,19 +17,28 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
+        <ItemsControl Name="controll" Grid.Row="1" Grid.Column="1" Margin="10" ItemsSource="{Binding ShapesCollection}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas Name="Canvass" MouseDown="Canvas_MouseDown" MouseUp="Canvas_MouseUp" MouseMove="Canvass_MouseMove" Background="White"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Path Data="{Binding Data}" Stroke="{Binding Stroke}" StrokeThickness="{Binding StrokeThickness}"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
         <DockPanel  Margin="5">
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="_File">
-                    <MenuItem Header="_New" />
-                    <MenuItem Header="_Open" />
-                    <MenuItem Header="_Save" Command="{Binding SaveCanvasCommand}" CommandParameter="{Binding ItemsControl}" />
-                    <Separator />
-                    <MenuItem Header="_Exit" />
+                    <MenuItem Header="_Save" Click="SaveImage" />
                 </MenuItem>
             </Menu>
         </DockPanel>
 
-        <StackPanel Grid.Row="1" Grid.Column="0" >
+        <StackPanel Background="LightCyan" Grid.Row="1" Grid.Column="0" >
             <RadioButton Command="{Binding SetCircleDrawing}" Margin="10">Koło</RadioButton>
             <RadioButton Command="{Binding SetLineDrawing}" Margin="10">Linia</RadioButton>
             <RadioButton Command="{Binding SetCustomDrawing}" Margin="10">Ręczne</RadioButton>
@@ -39,20 +48,5 @@
             <RadioButton Command="{Binding MoveDrawing}" Margin="10">Move</RadioButton>
             <RadioButton Command="{Binding ScaleDrawing}" Margin="10">Scale</RadioButton>
         </StackPanel>
-
-
-        <ItemsControl Grid.Row="1" Grid.Column="1" Margin="10" ItemsSource="{Binding ShapesCollection}">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <Canvas Name="Canvass" Background="Transparent" MouseDown="Canvas_MouseDown" MouseUp="Canvas_MouseUp" MouseMove="Canvass_MouseMove"/>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Path Data="{Binding Geometry}" Stroke="{Binding Stroke}" StrokeThickness="{Binding StrokeThickness}"/>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-
     </Grid>
 </Window>

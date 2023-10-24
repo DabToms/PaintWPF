@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -33,15 +34,13 @@ public partial class MainWindow : Window
 
     private void Canvas_MouseDown(object sender, MouseButtonEventArgs e)
     {
-        this.Start = e.MouseDevice.GetPosition(this);
-        this.Start.Value.Offset(((Canvas)sender).Width, ((Canvas)sender).Height);
+        this.Start = e.MouseDevice.GetPosition(this.controll);
         IsDrawing = true;
     }
 
     private void Canvas_MouseUp(object sender, MouseButtonEventArgs e)
     {
-        this.End = e.MouseDevice.GetPosition(this);
-        this.End.Value.Offset((sender as Canvas).Width, (sender as Canvas).Height);
+        this.End = e.MouseDevice.GetPosition(this.controll);
 
         var vm = this.DataContext as MainViewModel;
         if (vm is not null)
@@ -61,7 +60,32 @@ public partial class MainWindow : Window
     {
         if (IsDrawing)
         {
-            Path.Add(e.GetPosition(this));
+            var pos = e.GetPosition(this.controll);
+            Path.Add(pos);
+        }
+    }
+
+    private void SaveImage(object sender, RoutedEventArgs e)
+    {
+        var canvas = this.FindCanvas();
+
+        if (canvas == null)
+        {
+            return;
+        }
+
+        var renderBitmap = new RenderTargetBitmap((int)canvas.ActualWidth, (int)canvas.ActualHeight, 96, 96, PixelFormats.Pbgra32);
+        renderBitmap.Render(canvas);
+        var saveFileDialog = new Microsoft.Win32.SaveFileDialog();
+        saveFileDialog.Filter = "PNG Image (*.png)|*.png";
+        if (saveFileDialog.ShowDialog() == true)
+        {
+            using (var stream = new FileStream(saveFileDialog.FileName, FileMode.Create))
+            {
+                var encoder = new PngBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create(renderBitmap));
+                encoder.Save(stream);
+            }
         }
     }
 }
