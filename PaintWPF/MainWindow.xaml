@@ -7,46 +7,97 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
 
-    <Grid Background="White">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
+
+
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <ItemsControl Name="controll" Grid.Row="1" Grid.Column="1" Margin="10" ItemsSource="{Binding ShapesCollection}">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <Canvas Name="Canvass" MouseDown="Canvas_MouseDown" MouseUp="Canvas_MouseUp" MouseMove="Canvass_MouseMove" Background="White"/>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Path Data="{Binding Data}" Stroke="{Binding Stroke}" StrokeThickness="{Binding StrokeThickness}"/>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+        <Menu Grid.Row="0" DockPanel.Dock="Top">
+            <MenuItem Header="_File">
+                <MenuItem Header="_Save" Click="SaveImage" />
+            </MenuItem>
+        </Menu>
 
-        <DockPanel  Margin="5">
-            <Menu DockPanel.Dock="Top">
-                <MenuItem Header="_File">
-                    <MenuItem Header="_Save" Click="SaveImage" />
-                </MenuItem>
-            </Menu>
-        </DockPanel>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
 
-        <StackPanel Background="LightCyan" Grid.Row="1" Grid.Column="0" >
-            <RadioButton Command="{Binding SetCircleDrawing}" Margin="10">Koło</RadioButton>
-            <RadioButton Command="{Binding SetLineDrawing}" Margin="10">Linia</RadioButton>
-            <RadioButton Command="{Binding SetCustomDrawing}" Margin="10">Ręczne</RadioButton>
-            <RadioButton Command="{Binding SetTriangleDrawing}" Margin="10">Trójkąt</RadioButton>
-            <RadioButton Command="{Binding SetRectangleDrawing}" Margin="10">Porstokąt</RadioButton>
-            <RadioButton Command="{Binding SelectDrawing}" Margin="10">Select</RadioButton>
-            <RadioButton Command="{Binding MoveDrawing}" Margin="10">Move</RadioButton>
-            <RadioButton Command="{Binding ScaleDrawing}" Margin="10">Scale</RadioButton>
-        </StackPanel>
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Background="LightCyan" >
+                    <RadioButton Command="{Binding SetCircleDrawing}" Margin="10">Koło</RadioButton>
+                    <RadioButton Command="{Binding SetLineDrawing}" Margin="10">Linia</RadioButton>
+                    <RadioButton Command="{Binding SetCustomDrawing}" Margin="10">Ręczne</RadioButton>
+                    <RadioButton Command="{Binding SetTriangleDrawing}" Margin="10">Trójkąt</RadioButton>
+                    <RadioButton Command="{Binding SetRectangleDrawing}" Margin="10">Porstokąt</RadioButton>
+                    <RadioButton Command="{Binding SelectDrawing}" Margin="10">Select</RadioButton>
+                    <RadioButton Command="{Binding MoveDrawing}" Margin="10">Move</RadioButton>
+                    <RadioButton Command="{Binding ScaleDrawing}" Margin="10">Scale</RadioButton>
+                </StackPanel>
+
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Content="R"/>
+                        <TextBox Grid.Column="1" Padding="10" Text="{Binding Value, ElementName=slider}"></TextBox>
+                        <Slider x:Name="slider" Grid.Column="2" Maximum="255"></Slider>
+                    </Grid>
+
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Content="G"/>
+                        <TextBox Grid.Column="1" Padding="10" Text="{Binding Value, ElementName=slider}"></TextBox>
+                        <Slider x:Name="slider" Grid.Column="2" Maximum="255"></Slider>
+                    </Grid>
+
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Content="B"/>
+                        <TextBox Grid.Column="1" Padding="10" Text="{Binding Value, ElementName=slider}"></TextBox>
+                        <Slider x:Name="slider" Grid.Column="2" Maximum="255"></Slider>
+                    </Grid>
+                </Grid>
+            </Grid>
+
+            <ItemsControl Name="controll" Grid.Column="1" Margin="10" ItemsSource="{Binding ShapesCollection}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas Name="Canvass" MouseDown="Canvas_MouseDown" MouseUp="Canvas_MouseUp" MouseMove="Canvass_MouseMove" Background="White"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Path Data="{Binding Data}" Stroke="{Binding Stroke}" StrokeThickness="{Binding StrokeThickness}"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+        </Grid>
     </Grid>
 </Window>

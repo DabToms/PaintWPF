@@ -85,7 +85,7 @@ internal class MainViewModel : INotifyPropertyChanged
             case DrawingType.Scale:
                 if (SelectedGeometry != null)
                 {
-                    SelectedGeometry.Data.Transform = new ScaleTransform(Math.Abs(start.X - end.X) / 100, Math.Abs(start.Y - end.Y) / 100);
+                    SelectedGeometry.Data.Transform = new ScaleTransform(Math.Abs(start.X - end.X)/100, Math.Abs(start.Y - end.Y)/100,- SelectedGeometry.Data.Bounds.Left+ SelectedGeometry.Data.Bounds.Right, -SelectedGeometry.Data.Bounds.Top+ SelectedGeometry.Data.Bounds.Bottom);
                 }
                 break;
             case DrawingType.Move:
