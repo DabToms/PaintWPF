@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PaintWPF;
+namespace PaintWPF.Models;
 
 
 public enum DrawingType
@@ -17,4 +17,5 @@ public enum DrawingType
     Select = 5,
     Move = 6,
     Scale = 7,
+    Cube = 8,
 }

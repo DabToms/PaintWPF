@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,22 +9,18 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using PaintWPF.Providers;
-using PaintWPF.ViewModels;
 
-namespace PaintWPF;
+namespace PaintWPF.Views;
 /// <summary>
-/// Interaction logic for MainWindow.xaml
+/// Interaction logic for CubeView.xaml
 /// </summary>
-public partial class MainWindow : Window
+public partial class CubeView : UserControl
 {
-    public MainWindow()
+    public CubeView()
     {
         InitializeComponent();
     }
-
 }

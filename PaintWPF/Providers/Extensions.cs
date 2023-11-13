@@ -9,7 +9,7 @@ using System.Windows.Ink;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace PaintWPF;
+namespace PaintWPF.Providers;
 internal static class Extensions
 {
     public static Path Path(this Path path, Geometry geo, Brush stroke, double strokeThickness)
@@ -29,7 +29,7 @@ internal static class Extensions
                 return canvas;
             }
 
-            var foundCanvas = FindCanvas(child);
+            var foundCanvas = child.FindCanvas();
             if (foundCanvas != null)
             {
                 return foundCanvas;

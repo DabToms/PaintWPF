@@ -1,0 +1,87 @@
+﻿<UserControl x:Class="PaintWPF.Views.CubeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PaintWPF.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Menu Grid.Row="0" DockPanel.Dock="Top">
+            <MenuItem Header="Cube" Command="{Binding NavigatePaintCommand}"/>
+        </Menu>
+        <Grid Grid.Row="1">
+            <Viewport3D >
+                <Viewport3D.Camera>
+                    <PerspectiveCamera Position="6 6 6" LookDirection="-6 -6 -6"/>
+                </Viewport3D.Camera>
+                <ModelVisual3D>
+                    <ModelVisual3D.Content>
+                        <DirectionalLight Direction="-1,-1,-1"/>
+                    </ModelVisual3D.Content>
+                </ModelVisual3D>
+                <ModelVisual3D>
+                    <ModelVisual3D.Content>
+                        <GeometryModel3D>
+                            <GeometryModel3D.Geometry>
+                                <MeshGeometry3D
+                                Positions="0 0 0  1 0 0  0 1 0  1 1 0  0 0 1  1 0 1  0 1 1  1 1 1"
+                                TriangleIndices="2 3 1  2 1 0  7 1 3  7 5 1  6 5 7  6 4 5  6 2 0  6 0 4  2 7 3  2 6 7  0 1 5  0 5 4"
+                                TextureCoordinates="0 0 0  1 0 0  0 1 0  1 1 0  0 0 1  1 0 1  0 1 1  1 1 1">
+                                </MeshGeometry3D>
+                            </GeometryModel3D.Geometry>
+                            <GeometryModel3D.Material>
+                                <DiffuseMaterial>
+                                    <DiffuseMaterial.Brush>
+                                        <LinearGradientBrush>
+                                            <GradientStop Offset="0" Color="Red"></GradientStop>
+                                            <GradientStop Offset="1" Color="Green"></GradientStop>
+                                            <GradientStop Offset="2" Color="Yellow"></GradientStop>
+                                            <GradientStop Offset="3" Color="Blue"></GradientStop>
+                                        </LinearGradientBrush>
+                                    </DiffuseMaterial.Brush>
+                                </DiffuseMaterial>
+                            </GeometryModel3D.Material>
+                        </GeometryModel3D>
+                    </ModelVisual3D.Content>
+                    <ModelVisual3D.Transform>
+                        <Transform3DGroup>
+                            <Transform3DGroup.Children>
+                                <TranslateTransform3D OffsetX="-0.5" OffsetY="-0.5" OffsetZ="-0.5" />
+                                <RotateTransform3D>
+                                    <RotateTransform3D.Rotation>
+                                        <AxisAngleRotation3D x:Name="rotateX" Axis="1 0 0"/>
+                                    </RotateTransform3D.Rotation>
+                                </RotateTransform3D>
+                                <RotateTransform3D>
+                                    <RotateTransform3D.Rotation>
+                                        <AxisAngleRotation3D x:Name="rotateY" Axis="0 1 0"/>
+                                    </RotateTransform3D.Rotation>
+                                </RotateTransform3D>
+                                <RotateTransform3D>
+                                    <RotateTransform3D.Rotation>
+                                        <AxisAngleRotation3D x:Name="rotateZ" Axis="0 0 1"/>
+                                    </RotateTransform3D.Rotation>
+                                </RotateTransform3D>
+                                <TranslateTransform3D OffsetX="0.5" OffsetY="0.5" OffsetZ="0.5" />
+                            </Transform3DGroup.Children>
+                        </Transform3DGroup>
+                    </ModelVisual3D.Transform>
+                </ModelVisual3D>
+            </Viewport3D>
+            <StackPanel Orientation="Vertical">
+                <Slider Maximum="360"
+                    Value="{Binding ElementName=rotateX, Path=Angle}" />
+                <Slider Maximum="360"
+                    Value="{Binding ElementName=rotateY, Path=Angle}" />
+                <Slider Maximum="360"
+                    Value="{Binding ElementName=rotateZ, Path=Angle}" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>
