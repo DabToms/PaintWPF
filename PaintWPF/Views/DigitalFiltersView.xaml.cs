@@ -17,12 +17,25 @@ using System.Windows.Shapes;
 
 namespace PaintWPF.Views;
 /// <summary>
-/// Interaction logic for CubeView.xaml
+/// Interaction logic for DigitalFiltersView.xaml
 /// </summary>
-public partial class CubeView : UserControl
+public partial class DigitalFiltersView : UserControl
 {
-    public CubeView()
+    public DigitalFiltersView()
     {
         InitializeComponent();
+    }
+
+    private void OnDrop(object sender, DragEventArgs e)
+    {
+        if (e.Data.GetDataPresent(DataFormats.FileDrop))
+        {
+            if (this.DataContext is DigitalFiltersViewModel vm)
+            {
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+
+                vm.LoadImage(files[0]);
+            }
+        }
     }
 }

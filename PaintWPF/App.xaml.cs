@@ -2,6 +2,7 @@
 
 using PaintWPF.Providers;
 using PaintWPF.ViewModels;
+using PaintWPF.Views;
 
 using System;
 using System.Collections.Generic;
@@ -28,9 +29,10 @@ public partial class App : Application
 
         services.AddSingleton<INavigationService>(x => CreateNavigatePaintService(x));
 
-        services.AddTransient<PaintViewModel>(x => new PaintViewModel(CreateNavigateCubeService(x)));
+        services.AddTransient<PaintViewModel>(x => new PaintViewModel(CreateNavigateCubeService(x), CreateNavigateFiltersService(x)));
 
         services.AddTransient<CubeViewModel>(x => new CubeViewModel(CreateNavigatePaintService(x)));
+        services.AddTransient<DigitalFiltersViewModel>(x => new DigitalFiltersViewModel(CreateNavigatePaintService(x)));
 
         services.AddSingleton<MainViewModel>();
 
@@ -64,5 +66,11 @@ public partial class App : Application
         return new NavigationService<CubeViewModel>(
                serviceProvider.GetRequiredService<NavigationStore>(),
                () => serviceProvider.GetRequiredService<CubeViewModel>());
+    }
+    private INavigationService CreateNavigateFiltersService(IServiceProvider serviceProvider)
+    {
+        return new NavigationService<DigitalFiltersViewModel>(
+               serviceProvider.GetRequiredService<NavigationStore>(),
+               () => serviceProvider.GetRequiredService<DigitalFiltersViewModel>());
     }
 }

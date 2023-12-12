@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:PaintWPF.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+    <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
@@ -14,11 +14,29 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
+        <ItemsControl Name="controll" Grid.Row="3" Margin="10" ItemsSource="{Binding ShapesCollection}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Canvas Name="Canvass" MouseDown="Canvas_MouseDown" MouseUp="Canvas_MouseUp" MouseMove="Canvass_MouseMove" Background="White"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Path Data="{Binding Data}" Stroke="{Binding Stroke}" StrokeThickness="{Binding StrokeThickness}"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
         <Menu Grid.Row="0" DockPanel.Dock="Top">
-            <MenuItem Header="_File">
-                <MenuItem Header="_Save" Click="SaveImage" />
+            <MenuItem Header="_Save">
+                <MenuItem Header="_SavePNG" Click="SavePNGImage" />
+                <MenuItem Header="_SavePBM" Click="SavePBMImage" />
+                <MenuItem Header="_SavePGM" Click="SavePGMImage" />
+                <MenuItem Header="_SavePPM" Click="SavePPMImage" />
             </MenuItem>
+            <MenuItem Header="_LoadImage" Click="LoadImage"/>
             <MenuItem Header="Cube" Command="{Binding NavigateCubeCommand}"/>
+            <MenuItem Header="Filters" Command="{Binding NavigateFiltersCommand}"/>
         </Menu>
 
         <StackPanel Grid.Row="1" Background="LightCyan" Orientation="Horizontal">
@@ -30,7 +48,6 @@
             <RadioButton Command="{Binding SelectDrawing}" Margin="10">Select</RadioButton>
             <RadioButton Command="{Binding MoveDrawing}" Margin="10">Move</RadioButton>
             <RadioButton Command="{Binding ScaleDrawing}" Margin="10">Scale</RadioButton>
-            <RadioButton Command="{Binding SetCubeDrawing}" Margin="10">Cube</RadioButton>
         </StackPanel>
 
         <Grid Grid.Row="2">
@@ -174,21 +191,6 @@
                 </Grid>
             </Grid>
             <Canvas Background="{Binding SelectedBrush}" Grid.Column="3"/>
-
-
-
         </Grid>
-        <ItemsControl Name="controll" Grid.Row="3" Margin="10" ItemsSource="{Binding ShapesCollection}">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <Canvas Name="Canvass" MouseDown="Canvas_MouseDown" MouseUp="Canvas_MouseUp" MouseMove="Canvass_MouseMove" Background="White"/>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Path Data="{Binding Data}" Stroke="{Binding Stroke}" StrokeThickness="{Binding StrokeThickness}"/>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
     </Grid>
 </UserControl>

@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace PaintWPF.Models;
-internal class RelayCommand : CommandBase
+internal class Command : CommandBase
 {
     private readonly Action _executeAction;
 
-    public RelayCommand(Action executeAction)
+    public Command(Action executeAction)
     {
         _executeAction = executeAction;
     }

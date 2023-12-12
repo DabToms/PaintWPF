@@ -15,7 +15,6 @@ public class CubeViewModel : ViewModelBase
 
     public CubeViewModel(INavigationService paintNavigationService)
     {
-
         NavigatePaintCommand = new NavigateCommand(paintNavigationService);
     }
 }
